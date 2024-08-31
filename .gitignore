@@ -1,0 +1,17 @@
+# Ignorar archivos de configuración del sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar directorios específicos
+/node_modules/
+/dist/
+
+# Ignorar archivos compilados
+*.class
+*.pyc
+*.o
+
+# Ignorar archivos de entorno
+.env
+.vscode/
+.idea/
