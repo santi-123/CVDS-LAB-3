@@ -22,6 +22,7 @@ public class Library {
         users = new ArrayList<>();
         books = new HashMap<>();
         loans = new ArrayList<>();
+        System.out.println("AJSKJLKASJKDJASKJD HOla");
     }
 
     /**
