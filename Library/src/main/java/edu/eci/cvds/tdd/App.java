@@ -1,4 +1,4 @@
-package edu.eci.cvds.tdd.library;
+package edu.eci.cvds.tdd;
 
 
 /**
