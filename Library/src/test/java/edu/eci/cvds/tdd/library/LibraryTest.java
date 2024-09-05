@@ -97,13 +97,29 @@ public class LibraryTest
         library.addBook(book);
         library.addUser(user);
 
-        // Primer prestamo 
+        // Primer prestamo
         Loan firstLoan = library.loanABook(user.getId(), book.getIsbn());
         assertNotNull("First loan should be add", firstLoan);
 
         // Intentamos un segundo prestamo del mismo libro por el mismo usuario
         Loan secondLoan = library.loanABook(user.getId(), book.getIsbn());
         assertNull("Second loan should fail if user already has the book", secondLoan);
+    }
+
+
+    public void method2Test5LoanDateIsSetCorrectly() {
+        Library library = new Library();
+        Book book = new Book("Libro 5", "Juan L5", "333444");
+        User user = new User();
+        user.setId("4");
+        user.setName("Juan");
+
+        library.addBook(book);
+        library.addUser(user);
+
+        Loan loan = library.loanABook(user.getId(), book.getIsbn());
+        assertNotNull("Loan created", loan);
+        assertEquals("Loan date should be the current date", LocalDateTime.now().toLocalDate(), loan.getLoanDate().toLocalDate());
     }
 
 
