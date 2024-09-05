@@ -86,4 +86,25 @@ public class LibraryTest
         assertNull("Loan should be null if user does not exist", loan);
     }
 
+
+    public void method2Test4LoanFailsIfUserAlreadyHasActiveLoanForSameBook() {
+        Library library = new Library();
+        Book book = new Book("Libro 4", "Juan L4", "111222");
+        User user = new User();
+        user.setId("3");
+        user.setName("Juan");
+
+        library.addBook(book);
+        library.addUser(user);
+
+        // Primer prestamo 
+        Loan firstLoan = library.loanABook(user.getId(), book.getIsbn());
+        assertNotNull("First loan should be add", firstLoan);
+
+        // Intentamos un segundo prestamo del mismo libro por el mismo usuario
+        Loan secondLoan = library.loanABook(user.getId(), book.getIsbn());
+        assertNull("Second loan should fail if user already has the book", secondLoan);
+    }
+
+
 }
