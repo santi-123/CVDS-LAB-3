@@ -67,7 +67,44 @@ public class LibraryTest
         assertEquals("The number of copies of the book should be 2", (Integer) 2, library.getBooks().get(book));
     }
 
-    
+    public void test3Method1AddMultipleDifferentBooks() {
+        Library library = new Library();
+        Book book1 = new Book("Libro 3", "Juan L3", "987654");
+        Book book2 = new Book("Libro 4", "Juan L4", "789123");
+
+        library.addBook(book1);
+        library.addBook(book2);
+
+        assertEquals("The number of copies of the first book should be 1", (Integer) 1, library.getBooks().get(book1));
+        assertEquals("The number of copies of the second book should be 1", (Integer) 1, library.getBooks().get(book2));
+    }
+
+    public void test4Method1AddBookFailsIfBookIsNull() {
+        Library library = new Library();
+
+        boolean result = library.addBook(null);
+
+        assertFalse("Adding a null book should fail", result);
+    }
+
+    public void test5Method1AddBookAndVerifyCorrectAmountAfterLoan() {
+        Library library = new Library();
+        Book book = new Book("Libro 5", "Juan L5", "333444");
+        User user = new User();
+        user.setId("5");
+        user.setName("Juan");
+
+        library.addBook(book);
+        library.addUser(user);
+
+        Loan loan = library.loanABook(user.getId(), book.getIsbn());
+
+        assertNotNull("Loan should be created successfully", loan);
+        assertEquals("The number of copies of the book should be 0 after loaning it", (Integer) 0, library.getBooks().get(book));
+    }
+
+
+
 
 
     // Metodo 2
