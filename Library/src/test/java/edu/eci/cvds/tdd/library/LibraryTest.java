@@ -30,20 +30,21 @@ public class LibraryTest
 
     /**
      * @return the suite of tests being tested
-     */
+
     public static Test suite()
     {
         return new TestSuite( AppTest.class );
     }
+     */
 
     /**
      * Rigourous Test :-)
-     */
+
     public void testApp()
     {
         assertTrue( true );
     }
-
+     */
     //Metodo 1
 
     public void test1Method1AddBookSuccessfully() {
