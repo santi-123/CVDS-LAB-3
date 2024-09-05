@@ -3,6 +3,14 @@ package edu.eci.cvds.tdd;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import edu.eci.cvds.tdd.library.Library;
+import edu.eci.cvds.tdd.library.book.Book;
+import edu.eci.cvds.tdd.library.loan.Loan;
+import edu.eci.cvds.tdd.library.loan.LoanStatus;
+import edu.eci.cvds.tdd.library.user.User;
+import junit.framework.TestCase;
+import java.time.LocalDateTime;
+
 
 /**
  * Unit test for simple App.
@@ -35,4 +43,22 @@ public class LibraryTest
     {
         assertTrue( true );
     }
+
+    public void method2Test1LoanBookSuccessfully() {
+        Library library = new Library();
+        Book book = new Book("Libro 1", "Juan L1", "123456");
+        User user = new User();
+        user.setId("1");
+        user.setName("Juan");
+
+        library.addBook(book);
+        library.addUser(user);
+
+        Loan loan = library.loanABook(user.getId(), book.getIsbn());
+        assertNotNull("Loan should not be null", loan);
+        assertEquals("Loan status should be ACTIVE", LoanStatus.ACTIVE, loan.getStatus());
+        assertEquals("Loan book should match", book, loan.getBook());
+        assertEquals("Loan user should match", user, loan.getUser());
+    }
+
 }
