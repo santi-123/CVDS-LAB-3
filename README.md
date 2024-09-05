@@ -17,3 +17,5 @@ Y ahora hacemos lo mismo pero en la carpeta de test
 
 ![img_3.png](img_3.png)
 
+
+Ahora procedemos a crear las pruebas, por cada prueba vamos a hacer un commit y luego de las pruebas implementaremos metodo por metodo.

@@ -3,11 +3,13 @@ package edu.eci.cvds.tdd.library;
 import edu.eci.cvds.tdd.library.book.Book;
 import edu.eci.cvds.tdd.library.loan.Loan;
 import edu.eci.cvds.tdd.library.user.User;
+import edu.eci.cvds.tdd.library.loan.LoanStatus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.time.LocalDateTime;
 
 /**
  * Library responsible for manage the loans and the users.
@@ -22,7 +24,7 @@ public class Library {
         users = new ArrayList<>();
         books = new HashMap<>();
         loans = new ArrayList<>();
-        System.out.println("AJSKJLKASJKDJASKJD HOla");
+
     }
 
     /**
@@ -36,9 +38,10 @@ public class Library {
      * @return true if the book was stored false otherwise.
      */
     public boolean addBook(Book book) {
-        //TODO Implement the logic to add a new book into the map.
-        return false;
+
+        return true;
     }
+
 
     /**
      * This method creates a new loan with for the User identify by the userId and the book identify by the isbn,
@@ -54,8 +57,52 @@ public class Library {
      * @return The new created loan.
      */
     public Loan loanABook(String userId, String isbn) {
-        //TODO Implement the login of loan a book to a user based on the UserId and the isbn.
-        return null;
+        // Se busca al usuario por con el ID
+        User foundUser = null;
+        for (User u : users) {
+            if (u.getId().equals(userId)) {
+                foundUser = u;
+                break;
+            }
+        }
+        if (foundUser == null) {
+
+            return null;
+        }
+
+        // Se busca el libro por su ISBN
+        Book foundBook = null;
+        for (Book b : books.keySet()) {
+            if (b.getIsbn().equals(isbn)) {
+                foundBook = b;
+                break;
+            }
+        }
+        if (foundBook == null || books.get(foundBook) <= 0) {
+
+            return null;
+        }
+
+        // Verificar si el usuario ya tiene un préstamo activo del mismo libro
+        for (Loan l : loans) {
+            if (l.getUser().getId().equals(userId) && l.getBook().getIsbn().equals(isbn) && l.getStatus() == LoanStatus.ACTIVE) {
+                // El usuario ya tiene un prestamo de este libro
+                return null;
+            }
+        }
+
+        // Crear un nuevo prestamo
+        Loan newLoan = new Loan();
+        newLoan.setUser(foundUser);
+        newLoan.setBook(foundBook);
+        newLoan.setLoanDate(LocalDateTime.now());
+        newLoan.setStatus(LoanStatus.ACTIVE);
+        loans.add(newLoan);
+
+        // Disminuir la cantidad de libros disponibles
+        books.put(foundBook, books.get(foundBook) - 1);
+
+        return newLoan;
     }
 
     /**
@@ -70,6 +117,10 @@ public class Library {
     public Loan returnLoan(Loan loan) {
         //TODO Implement the login of loan a book to a user based on the UserId and the isbn.
         return null;
+    }
+
+    public Map<Book, Integer> getBooks(){
+        return this.books;
     }
 
     public boolean addUser(User user) {
