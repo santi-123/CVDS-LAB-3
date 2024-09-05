@@ -56,6 +56,19 @@ public class LibraryTest
         assertEquals("The number of copies of the book should be 1", (Integer) 1, library.getBooks().get(book));
     }
 
+    public void test2Method1AddBookIncreasesQuantityWhenBookAlreadyExists() {
+        Library library = new Library();
+        Book book = new Book("Libro 2", "Juan L2", "654321");
+
+        // Añadir el mismo libro dos veces
+        library.addBook(book);
+        library.addBook(book);
+
+        assertEquals("The number of copies of the book should be 2", (Integer) 2, library.getBooks().get(book));
+    }
+
+    
+
 
     // Metodo 2
 
