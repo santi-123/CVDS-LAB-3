@@ -61,4 +61,18 @@ public class LibraryTest
         assertEquals("Loan user should match", user, loan.getUser());
     }
 
+
+    public void method2Test2LoanFailsIfBookNotAvailable() {
+        Library library = new Library();
+        Book book = new Book("Libro 2", "Juan L2", "654321");
+        User user = new User();
+        user.setId("2");
+        user.setName("Juan2");
+
+        library.addUser(user);  // Se añade el usuario sin libro
+
+        Loan loan = library.loanABook(user.getId(), book.getIsbn());
+        assertNull("Loan should be null if book is not available", loan);
+    }
+
 }
