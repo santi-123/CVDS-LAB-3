@@ -101,10 +101,10 @@ public class Library {
         return newLoan;
     }
 
-    private createNewLoan(User user, Book book){
+    private Loan createNewLoan(User user, Book book){
         Loan newLoan = new Loan();
-        newLoan.setUser(foundUser);
-        newLoan.setBook(foundBook);
+        newLoan.setUser(user);
+        newLoan.setBook(book);
         newLoan.setLoanDate(LocalDateTime.now());
         newLoan.setStatus(LoanStatus.ACTIVE);
         loans.add(newLoan);
@@ -139,13 +139,11 @@ public class Library {
         return loan;
     }
 
-
-    public Map<Book, Integer> getBooks(){
-        return this.books;
-    }
-
     public boolean addUser(User user) {
         return users.add(user);
     }
 
+    public Map<Book, Integer> getBooks() {
+        return books;
+    }
 }

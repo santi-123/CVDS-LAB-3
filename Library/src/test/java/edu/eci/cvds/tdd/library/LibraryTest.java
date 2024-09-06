@@ -1,55 +1,42 @@
 package edu.eci.cvds.tdd;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 import edu.eci.cvds.tdd.library.Library;
 import edu.eci.cvds.tdd.library.book.Book;
 import edu.eci.cvds.tdd.library.loan.Loan;
 import edu.eci.cvds.tdd.library.loan.LoanStatus;
 import edu.eci.cvds.tdd.library.user.User;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
-
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit test for simple App.
+ * Unit test for Library class using JUnit 5.
  */
-public class LibraryTest
-        extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public LibraryTest( String testName ){
-        super( testName );
-    }
+public class LibraryTest {
 
-    //Metodo 1
-
+    @Test
     public void addBookSuccessfully() {
         Library library = new Library();
         Book book = new Book("Libro 1", "Juan L1", "123456");
 
         boolean result = library.addBook(book);
 
-        assertTrue("The book should be added successfully", result);
-        assertEquals("The number of copies of the book should be 1", (Integer) 1, library.getBooks().get(book));
+        assertTrue(result, "The book should be added successfully");
+        assertEquals(1, library.getBooks().get(book), "The number of copies of the book should be 1");
     }
 
+    @Test
     public void addBookIncreasesQuantityWhenBookAlreadyExists() {
         Library library = new Library();
         Book book = new Book("Libro 2", "Juan L2", "654321");
 
-        // Añadir el mismo libro dos veces
         library.addBook(book);
         library.addBook(book);
 
-        assertEquals("The number of copies of the book should be 2", (Integer) 2, library.getBooks().get(book));
+        assertEquals(2, library.getBooks().get(book), "The number of copies of the book should be 2");
     }
 
+    @Test
     public void addMultipleDifferentBooks() {
         Library library = new Library();
         Book book1 = new Book("Libro 3", "Juan L3", "987654");
@@ -58,18 +45,20 @@ public class LibraryTest
         library.addBook(book1);
         library.addBook(book2);
 
-        assertEquals("The number of copies of the first book should be 1", (Integer) 1, library.getBooks().get(book1));
-        assertEquals("The number of copies of the second book should be 1", (Integer) 1, library.getBooks().get(book2));
+        assertEquals(1, library.getBooks().get(book1), "The number of copies of the first book should be 1");
+        assertEquals(1, library.getBooks().get(book2), "The number of copies of the second book should be 1");
     }
 
+    @Test
     public void addBookFailsIfBookIsNull() {
         Library library = new Library();
 
         boolean result = library.addBook(null);
 
-        assertFalse("Adding a null book should fail", result);
+        assertFalse(result, "Adding a null book should fail");
     }
 
+    @Test
     public void addBookAndVerifyCorrectAmountAfterLoan() {
         Library library = new Library();
         Book book = new Book("Libro 5", "Juan L5", "333444");
@@ -82,13 +71,11 @@ public class LibraryTest
 
         Loan loan = library.loanABook(user.getId(), book.getIsbn());
 
-        assertNotNull("Loan should be created successfully", loan);
-        assertEquals("The number of copies of the book should be 0 after loaning it", (Integer) 0, library.getBooks().get(book));
+        assertNotNull(loan, "Loan should be created successfully");
+        assertEquals(0, library.getBooks().get(book), "The number of copies of the book should be 0 after loaning it");
     }
 
-
-    // Metodo 2
-
+    @Test
     public void loanBookSuccessfully() {
         Library library = new Library();
         Book book = new Book("Libro 1", "Juan L1", "123456");
@@ -100,13 +87,13 @@ public class LibraryTest
         library.addUser(user);
 
         Loan loan = library.loanABook(user.getId(), book.getIsbn());
-        assertNotNull("Loan should not be null", loan);
-        assertEquals("Loan status should be ACTIVE", LoanStatus.ACTIVE, loan.getStatus());
-        assertEquals("Loan book should match", book, loan.getBook());
-        assertEquals("Loan user should match", user, loan.getUser());
+        assertNotNull(loan, "Loan should not be null");
+        assertEquals(LoanStatus.ACTIVE, loan.getStatus(), "Loan status should be ACTIVE");
+        assertEquals(book, loan.getBook(), "Loan book should match");
+        assertEquals(user, loan.getUser(), "Loan user should match");
     }
 
-
+    @Test
     public void loanFailsIfBookNotAvailable() {
         Library library = new Library();
         Book book = new Book("Libro 2", "Juan L2", "654321");
@@ -117,10 +104,10 @@ public class LibraryTest
         library.addUser(user);  // Se añade el usuario sin libro
 
         Loan loan = library.loanABook(user.getId(), book.getIsbn());
-        assertNull("Loan should be null if book is not available", loan);
+        assertNull(loan, "Loan should be null if book is not available");
     }
 
-
+    @Test
     public void loanFailsIfUserDoesNotExist() {
         Library library = new Library();
         Book book = new Book("Libro 3", "Juan L3", "987654");
@@ -128,10 +115,10 @@ public class LibraryTest
         library.addBook(book);  // Añadimos libro sin añadir usuario
 
         Loan loan = library.loanABook("An invalid id", book.getIsbn());
-        assertNull("Loan should be null if user does not exist", loan);
+        assertNull(loan, "Loan should be null if user does not exist");
     }
 
-
+    @Test
     public void loanFailsIfUserAlreadyHasActiveLoanForSameBook() {
         Library library = new Library();
         Book book = new Book("Libro 4", "Juan L4", "111222");
@@ -142,16 +129,14 @@ public class LibraryTest
         library.addBook(book);
         library.addUser(user);
 
-        // Primer prestamo
         Loan firstLoan = library.loanABook(user.getId(), book.getIsbn());
-        assertNotNull("First loan should be add", firstLoan);
+        assertNotNull(firstLoan, "First loan should be add");
 
-        // Intentamos un segundo prestamo del mismo libro por el mismo usuario
         Loan secondLoan = library.loanABook(user.getId(), book.getIsbn());
-        assertNull("Second loan should fail if user already has the book", secondLoan);
+        assertNull(secondLoan, "Second loan should fail if user already has the book");
     }
 
-
+    @Test
     public void loanDateIsSetCorrectly() {
         Library library = new Library();
         Book book = new Book("Libro 5", "Juan L5", "333444");
@@ -163,13 +148,9 @@ public class LibraryTest
         library.addUser(user);
 
         Loan loan = library.loanABook(user.getId(), book.getIsbn());
-        assertNotNull("Loany created", loan);
-        System.out.println(loan.getLoanDate().toLocalDate());
-        assertEquals("Loan date should be the current date", LocalDateTime.now().toLocalDate(), loan.getLoanDate().toLocalDate());
+        assertNotNull(loan, "Loan created");
+        assertEquals(LocalDateTime.now().toLocalDate(), loan.getLoanDate().toLocalDate(), "Loan date should be the current date");
     }
-
-
-    //Metodo 3
 
     @Test
     public void testReturnLoanWithNullLoan() {
@@ -192,37 +173,28 @@ public class LibraryTest
     @Test
     public void testReturnActiveLoan() {
         Library library = new Library();
-
-        // Crear el libro y agregarlo a la biblioteca
-        Book book = new Book("Libro1", "G. Marquez", "12345",);
+        Book book = new Book("Libro1", "G. Marquez", "12345");
         library.addBook(book);
 
-        // Crear un usuario y agregarlo a la biblioteca
         User user = new User();
         library.addUser(user);
 
-        // Crear un préstamo activo
         Loan loan = new Loan();
         loan.setUser(user);
         loan.setBook(book);
         loan.setStatus(LoanStatus.ACTIVE);
-        library.getBooks().put(book, 0); // No quedan copias disponibles del libro
+        library.getBooks().put(book, 0);
 
-        // Devolver el préstamo
         Loan result = library.returnLoan(loan);
 
-        // Verificar que el préstamo está ahora en estado "RETURNED"
         assertNotNull(result, "The loan should be able to be repaid");
         assertEquals(LoanStatus.RETURNED, result.getStatus(), "The loan status should be 'RETURNED'");
-
-        // Verificar que la cantidad de libros ha aumentado
         assertEquals(1, library.getBooks().get(book), "The number of books should have increased by 1");
     }
 
     @Test
     public void testReturnNonExistentLoan() {
         Library library = new Library();
-        // Crear un préstamo que no existe en la lista de préstamos
         Loan loan = new Loan();
 
         Loan result = library.returnLoan(loan);
@@ -232,25 +204,18 @@ public class LibraryTest
     @Test
     public void testReturnLoanAlreadyReturned() {
         Library library = new Library();
-
-        // Crear un libro y agregarlo a la biblioteca
         Book book = new Book("Libro2", "S. Diaz", "12345");
         library.addBook(book);
 
-        // Crear un usuario y agregarlo a la biblioteca
         User user = new User();
         library.addUser(user);
 
-        // Crear un préstamo que ya fue devuelto
         Loan loan = new Loan();
         loan.setUser(user);
         loan.setBook(book);
-        loan.setStatus(LoanStatus.RETURNED); // Ya ha sido devuelto
+        loan.setStatus(LoanStatus.RETURNED);
 
         Loan result = library.returnLoan(loan);
-
-        // Verificar que no se puede devolver un préstamo ya devuelto
         assertNull(result, "You should not be able to repay a loan that has already been repaid.");
     }
-
 }

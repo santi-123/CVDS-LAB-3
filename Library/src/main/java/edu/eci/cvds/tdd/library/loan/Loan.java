@@ -53,6 +53,3 @@ public class Loan {
     }
 }
 
-public enum LoanStatus {
-    ACTIVE, RETURNED
-}
