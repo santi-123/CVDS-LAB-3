@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="edu.eci.cvds.tdd.LibraryTest" time="0.0" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="edu.eci.cvds.tdd.library.LibraryTest" time="0.129" tests="15" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="C:\Users\sadir\OneDrive - ESCUELA COLOMBIANA DE INGENIERIA JULIO GARAVITO\2014-2\CVDS\LABS\CVDS-LAB-3\Library\target\test-classes;C:\Users\sadir\OneDrive - ESCUELA COLOMBIANA DE INGENIERIA JULIO GARAVITO\2014-2\CVDS\LABS\CVDS-LAB-3\Library\target\classes;C:\Users\sadir\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;"/>
+    <property name="java.class.path" value="C:\Users\sadir\OneDrive - ESCUELA COLOMBIANA DE INGENIERIA JULIO GARAVITO\2014-2\CVDS\LABS\CVDS-LAB-3\Library\target\test-classes;C:\Users\sadir\OneDrive - ESCUELA COLOMBIANA DE INGENIERIA JULIO GARAVITO\2014-2\CVDS\LABS\CVDS-LAB-3\Library\target\classes;C:\Users\sadir\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.0\junit-jupiter-api-5.10.0.jar;C:\Users\sadir\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\sadir\.m2\repository\org\junit\platform\junit-platform-commons\1.10.0\junit-platform-commons-1.10.0.jar;C:\Users\sadir\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\sadir\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.0\junit-jupiter-engine-5.10.0.jar;C:\Users\sadir\.m2\repository\org\junit\platform\junit-platform-engine\1.10.0\junit-platform-engine-1.10.0.jar;"/>
     <property name="java.vm.vendor" value="Eclipse Adoptium"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
@@ -16,9 +16,9 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-21.0.2.13-hotspot\bin"/>
-    <property name="sun.java.command" value="C:\Users\sadir\AppData\Local\Temp\surefire16007915253391316358\surefirebooter-20240903080018053_3.jar C:\Users\sadir\AppData\Local\Temp\surefire16007915253391316358 2024-09-03T08-00-17_896-jvmRun1 surefire-20240903080018053_1tmp surefire_0-20240903080018053_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\sadir\AppData\Local\Temp\surefire13257172674606136278\surefirebooter-20240906002729134_3.jar C:\Users\sadir\AppData\Local\Temp\surefire13257172674606136278 2024-09-06T00-27-28_613-jvmRun1 surefire-20240906002729134_1tmp surefire_0-20240906002729134_2tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="C:\Users\sadir\OneDrive - ESCUELA COLOMBIANA DE INGENIERIA JULIO GARAVITO\2014-2\CVDS\LABS\CVDS-LAB-3\Library\target\test-classes;C:\Users\sadir\OneDrive - ESCUELA COLOMBIANA DE INGENIERIA JULIO GARAVITO\2014-2\CVDS\LABS\CVDS-LAB-3\Library\target\classes;C:\Users\sadir\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;"/>
+    <property name="surefire.test.class.path" value="C:\Users\sadir\OneDrive - ESCUELA COLOMBIANA DE INGENIERIA JULIO GARAVITO\2014-2\CVDS\LABS\CVDS-LAB-3\Library\target\test-classes;C:\Users\sadir\OneDrive - ESCUELA COLOMBIANA DE INGENIERIA JULIO GARAVITO\2014-2\CVDS\LABS\CVDS-LAB-3\Library\target\classes;C:\Users\sadir\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.0\junit-jupiter-api-5.10.0.jar;C:\Users\sadir\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\sadir\.m2\repository\org\junit\platform\junit-platform-commons\1.10.0\junit-platform-commons-1.10.0.jar;C:\Users\sadir\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\sadir\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.0\junit-jupiter-engine-5.10.0.jar;C:\Users\sadir\.m2\repository\org\junit\platform\junit-platform-engine\1.10.0\junit-platform-engine-1.10.0.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\sadir"/>
     <property name="user.language" value="en"/>
@@ -31,7 +31,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\sadir\AppData\Local\Temp\surefire16007915253391316358\surefirebooter-20240903080018053_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\sadir\AppData\Local\Temp\surefire13257172674606136278\surefirebooter-20240906002729134_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.2+13-LTS"/>
@@ -61,5 +61,19 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="testApp" classname="edu.eci.cvds.tdd.AppTest" time="0.0"/>
+  <testcase name="returnLoanAlreadyReturned" classname="edu.eci.cvds.tdd.library.LibraryTest" time="0.059"/>
+  <testcase name="loanFailsIfUserAlreadyHasActiveLoanForSameBook" classname="edu.eci.cvds.tdd.library.LibraryTest" time="0.009"/>
+  <testcase name="returnActiveLoan" classname="edu.eci.cvds.tdd.library.LibraryTest" time="0.003"/>
+  <testcase name="loanFailsIfUserDoesNotExist" classname="edu.eci.cvds.tdd.library.LibraryTest" time="0.002"/>
+  <testcase name="returnLoanWhenLoanIsNotActive" classname="edu.eci.cvds.tdd.library.LibraryTest" time="0.001"/>
+  <testcase name="loanBookSuccessfully" classname="edu.eci.cvds.tdd.library.LibraryTest" time="0.001"/>
+  <testcase name="loanFailsIfBookNotAvailable" classname="edu.eci.cvds.tdd.library.LibraryTest" time="0.001"/>
+  <testcase name="addBookSuccessfully" classname="edu.eci.cvds.tdd.library.LibraryTest" time="0.002"/>
+  <testcase name="addBookAndVerifyCorrectAmountAfterLoan" classname="edu.eci.cvds.tdd.library.LibraryTest" time="0.001"/>
+  <testcase name="returnNonExistentLoan" classname="edu.eci.cvds.tdd.library.LibraryTest" time="0.001"/>
+  <testcase name="returnLoanWithNullLoan" classname="edu.eci.cvds.tdd.library.LibraryTest" time="0.003"/>
+  <testcase name="addBookIncreasesQuantityWhenBookAlreadyExists" classname="edu.eci.cvds.tdd.library.LibraryTest" time="0.001"/>
+  <testcase name="addMultipleDifferentBooks" classname="edu.eci.cvds.tdd.library.LibraryTest" time="0.001"/>
+  <testcase name="addBookFailsIfBookIsNull" classname="edu.eci.cvds.tdd.library.LibraryTest" time="0.002"/>
+  <testcase name="loanDateIsSetCorrectly" classname="edu.eci.cvds.tdd.library.LibraryTest" time="0.001"/>
 </testsuite>

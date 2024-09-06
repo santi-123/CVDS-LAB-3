@@ -51,8 +51,6 @@ public class Library {
         return true;
     }
 
-
-
     /**
      * This method creates a new loan with for the User identify by the userId and the book identify by the isbn,
      * the loan should be store in the list of loans, to successfully create a loan is required to validate that the
@@ -76,10 +74,8 @@ public class Library {
             }
         }
         if (foundUser == null) {
-
             return null;
         }
-
         // Se busca el libro por su ISBN
         Book foundBook = null;
         for (Book b : books.keySet()) {
@@ -89,10 +85,8 @@ public class Library {
             }
         }
         if (foundBook == null || books.get(foundBook) <= 0) {
-
             return null;
         }
-
         // Verificar si el usuario ya tiene un préstamo activo del mismo libro
         for (Loan l : loans) {
             if (l.getUser().getId().equals(userId) && l.getBook().getIsbn().equals(isbn) && l.getStatus() == LoanStatus.ACTIVE) {
@@ -100,18 +94,20 @@ public class Library {
                 return null;
             }
         }
-
         // Crear un nuevo prestamo
+        Loan newLoan = createNewLoan(foundUser, foundBook);
+        // Disminuir la cantidad de libros disponibles
+        books.put(foundBook, books.get(foundBook) - 1);
+        return newLoan;
+    }
+
+    private Loan createNewLoan(User user, Book book){
         Loan newLoan = new Loan();
-        newLoan.setUser(foundUser);
-        newLoan.setBook(foundBook);
+        newLoan.setUser(user);
+        newLoan.setBook(book);
         newLoan.setLoanDate(LocalDateTime.now());
         newLoan.setStatus(LoanStatus.ACTIVE);
         loans.add(newLoan);
-
-        // Disminuir la cantidad de libros disponibles
-        books.put(foundBook, books.get(foundBook) - 1);
-
         return newLoan;
     }
 
@@ -125,16 +121,29 @@ public class Library {
      * @return the loan with the RETURNED status.
      */
     public Loan returnLoan(Loan loan) {
-        //TODO Implement the login of loan a book to a user based on the UserId and the isbn.
-        return null;
-    }
+        if (loan == null || loan.getStatus() != LoanStatus.ACTIVE) {
+            // El préstamo es nulo o no está en estado ACTIVE, no se puede devolver
+            return null;
+        }
 
-    public Map<Book, Integer> getBooks(){
-        return this.books;
+        // Aumentar la cantidad de libros disponibles
+        Book returnedBook = loan.getBook();
+        if (books.containsKey(returnedBook)) {
+            books.put(returnedBook, books.get(returnedBook) + 1);
+        }
+
+        // Cambiar el estado del préstamo a RETURNED y establecer la fecha de devolución
+        loan.setStatus(LoanStatus.RETURNED);
+        loan.setReturnDate(LocalDateTime.now());
+
+        return loan;
     }
 
     public boolean addUser(User user) {
         return users.add(user);
     }
 
+    public Map<Book, Integer> getBooks() {
+        return books;
+    }
 }
