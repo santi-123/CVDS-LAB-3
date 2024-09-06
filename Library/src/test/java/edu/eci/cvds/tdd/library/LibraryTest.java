@@ -228,4 +228,29 @@ public class LibraryTest
         Loan result = library.returnLoan(loan);
         assertNull(result, "A non-existent loan should not be able to be repaid");
     }
+
+    @Test
+    public void testReturnLoanAlreadyReturned() {
+        Library library = new Library();
+
+        // Crear un libro y agregarlo a la biblioteca
+        Book book = new Book("Libro2", "S. Diaz", "12345");
+        library.addBook(book);
+
+        // Crear un usuario y agregarlo a la biblioteca
+        User user = new User();
+        library.addUser(user);
+
+        // Crear un préstamo que ya fue devuelto
+        Loan loan = new Loan();
+        loan.setUser(user);
+        loan.setBook(book);
+        loan.setStatus(LoanStatus.RETURNED); // Ya ha sido devuelto
+
+        Loan result = library.returnLoan(loan);
+
+        // Verificar que no se puede devolver un préstamo ya devuelto
+        assertNull(result, "You should not be able to repay a loan that has already been repaid.");
+    }
+
 }
