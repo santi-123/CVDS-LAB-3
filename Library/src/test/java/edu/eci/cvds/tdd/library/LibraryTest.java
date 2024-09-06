@@ -186,7 +186,37 @@ public class LibraryTest
         loan.setStatus(LoanStatus.RETURNED); // Establecer el estado a "RETURNED"
 
         Loan result = library.returnLoan(loan);
-        assertNull(result, "No se debería poder devolver un préstamo que no está activo");
+        assertNull(result, "A loan that is not active should not be able to be repaid");
+    }
+
+    @Test
+    public void testReturnActiveLoan() {
+        Library library = new Library();
+
+        // Crear el libro y agregarlo a la biblioteca
+        Book book = new Book("Libro1", "G. Marquez", "12345",);
+        library.addBook(book);
+
+        // Crear un usuario y agregarlo a la biblioteca
+        User user = new User();
+        library.addUser(user);
+
+        // Crear un préstamo activo
+        Loan loan = new Loan();
+        loan.setUser(user);
+        loan.setBook(book);
+        loan.setStatus(LoanStatus.ACTIVE);
+        library.getBooks().put(book, 0); // No quedan copias disponibles del libro
+
+        // Devolver el préstamo
+        Loan result = library.returnLoan(loan);
+
+        // Verificar que el préstamo está ahora en estado "RETURNED"
+        assertNotNull(result, "The loan should be able to be repaid");
+        assertEquals(LoanStatus.RETURNED, result.getStatus(), "The loan status should be 'RETURNED'");
+
+        // Verificar que la cantidad de libros ha aumentado
+        assertEquals(1, library.getBooks().get(book), "The number of books should have increased by 1");
     }
 
 }
