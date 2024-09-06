@@ -121,9 +121,24 @@ public class Library {
      * @return the loan with the RETURNED status.
      */
     public Loan returnLoan(Loan loan) {
-        //TODO Implement the login of loan a book to a user based on the UserId and the isbn.
-        return null;
+        if (loan == null || loan.getStatus() != LoanStatus.ACTIVE) {
+            // El préstamo es nulo o no está en estado ACTIVE, no se puede devolver
+            return null;
+        }
+
+        // Aumentar la cantidad de libros disponibles
+        Book returnedBook = loan.getBook();
+        if (books.containsKey(returnedBook)) {
+            books.put(returnedBook, books.get(returnedBook) + 1);
+        }
+
+        // Cambiar el estado del préstamo a RETURNED y establecer la fecha de devolución
+        loan.setStatus(LoanStatus.RETURNED);
+        loan.setReturnDate(LocalDateTime.now());
+
+        return loan;
     }
+
 
     public Map<Book, Integer> getBooks(){
         return this.books;
