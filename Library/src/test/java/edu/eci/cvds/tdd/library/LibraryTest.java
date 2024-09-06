@@ -23,31 +23,13 @@ public class LibraryTest
      *
      * @param testName name of the test case
      */
-    public LibraryTest( String testName )
-    {
+    public LibraryTest( String testName ){
         super( testName );
     }
 
-    /**
-     * @return the suite of tests being tested
-
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
-     */
-
-    /**
-     * Rigourous Test :-)
-
-    public void testApp()
-    {
-        assertTrue( true );
-    }
-     */
     //Metodo 1
 
-    public void test1Method1AddBookSuccessfully() {
+    public void addBookSuccessfully() {
         Library library = new Library();
         Book book = new Book("Libro 1", "Juan L1", "123456");
 
@@ -57,7 +39,7 @@ public class LibraryTest
         assertEquals("The number of copies of the book should be 1", (Integer) 1, library.getBooks().get(book));
     }
 
-    public void test2Method1AddBookIncreasesQuantityWhenBookAlreadyExists() {
+    public void addBookIncreasesQuantityWhenBookAlreadyExists() {
         Library library = new Library();
         Book book = new Book("Libro 2", "Juan L2", "654321");
 
@@ -68,7 +50,7 @@ public class LibraryTest
         assertEquals("The number of copies of the book should be 2", (Integer) 2, library.getBooks().get(book));
     }
 
-    public void test3Method1AddMultipleDifferentBooks() {
+    public void addMultipleDifferentBooks() {
         Library library = new Library();
         Book book1 = new Book("Libro 3", "Juan L3", "987654");
         Book book2 = new Book("Libro 4", "Juan L4", "789123");
@@ -80,7 +62,7 @@ public class LibraryTest
         assertEquals("The number of copies of the second book should be 1", (Integer) 1, library.getBooks().get(book2));
     }
 
-    public void test4Method1AddBookFailsIfBookIsNull() {
+    public void addBookFailsIfBookIsNull() {
         Library library = new Library();
 
         boolean result = library.addBook(null);
@@ -88,7 +70,7 @@ public class LibraryTest
         assertFalse("Adding a null book should fail", result);
     }
 
-    public void test5Method1AddBookAndVerifyCorrectAmountAfterLoan() {
+    public void addBookAndVerifyCorrectAmountAfterLoan() {
         Library library = new Library();
         Book book = new Book("Libro 5", "Juan L5", "333444");
         User user = new User();
@@ -105,12 +87,9 @@ public class LibraryTest
     }
 
 
-
-
-
     // Metodo 2
 
-    public void test1Method2LoanBookSuccessfully() {
+    public void loanBookSuccessfully() {
         Library library = new Library();
         Book book = new Book("Libro 1", "Juan L1", "123456");
         User user = new User();
@@ -128,7 +107,7 @@ public class LibraryTest
     }
 
 
-    public void test2Method2LoanFailsIfBookNotAvailable() {
+    public void loanFailsIfBookNotAvailable() {
         Library library = new Library();
         Book book = new Book("Libro 2", "Juan L2", "654321");
         User user = new User();
@@ -142,7 +121,7 @@ public class LibraryTest
     }
 
 
-    public void test3Method2LoanFailsIfUserDoesNotExist() {
+    public void loanFailsIfUserDoesNotExist() {
         Library library = new Library();
         Book book = new Book("Libro 3", "Juan L3", "987654");
 
@@ -153,7 +132,7 @@ public class LibraryTest
     }
 
 
-    public void test4Method2LoanFailsIfUserAlreadyHasActiveLoanForSameBook() {
+    public void loanFailsIfUserAlreadyHasActiveLoanForSameBook() {
         Library library = new Library();
         Book book = new Book("Libro 4", "Juan L4", "111222");
         User user = new User();
@@ -173,7 +152,7 @@ public class LibraryTest
     }
 
 
-    public void test5Method2LoanDateIsSetCorrectly() {
+    public void loanDateIsSetCorrectly() {
         Library library = new Library();
         Book book = new Book("Libro 5", "Juan L5", "333444");
         User user = new User();
@@ -187,6 +166,17 @@ public class LibraryTest
         assertNotNull("Loany created", loan);
         System.out.println(loan.getLoanDate().toLocalDate());
         assertEquals("Loan date should be the current date", LocalDateTime.now().toLocalDate(), loan.getLoanDate().toLocalDate());
+    }
+
+
+    //Metodo 3
+
+    @Test
+    public void testReturnLoanWithNullLoan() {
+        Library library = new Library();
+        Loan loan = null;
+        Loan result = library.returnLoan(loan);
+        assertNull(result, "Returning a null loan should return null");
     }
 
 

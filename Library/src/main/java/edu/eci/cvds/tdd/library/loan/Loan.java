@@ -52,3 +52,7 @@ public class Loan {
         this.returnDate = returnDate;
     }
 }
+
+public enum LoanStatus {
+    ACTIVE, RETURNED
+}

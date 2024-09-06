@@ -51,8 +51,6 @@ public class Library {
         return true;
     }
 
-
-
     /**
      * This method creates a new loan with for the User identify by the userId and the book identify by the isbn,
      * the loan should be store in the list of loans, to successfully create a loan is required to validate that the
@@ -76,10 +74,8 @@ public class Library {
             }
         }
         if (foundUser == null) {
-
             return null;
         }
-
         // Se busca el libro por su ISBN
         Book foundBook = null;
         for (Book b : books.keySet()) {
@@ -89,10 +85,8 @@ public class Library {
             }
         }
         if (foundBook == null || books.get(foundBook) <= 0) {
-
             return null;
         }
-
         // Verificar si el usuario ya tiene un préstamo activo del mismo libro
         for (Loan l : loans) {
             if (l.getUser().getId().equals(userId) && l.getBook().getIsbn().equals(isbn) && l.getStatus() == LoanStatus.ACTIVE) {
@@ -100,18 +94,20 @@ public class Library {
                 return null;
             }
         }
-
         // Crear un nuevo prestamo
+        Loan newLoan = createNewLoan(foundUser, foundBook);
+        // Disminuir la cantidad de libros disponibles
+        books.put(foundBook, books.get(foundBook) - 1);
+        return newLoan;
+    }
+
+    private createNewLoan(User user, Book book){
         Loan newLoan = new Loan();
         newLoan.setUser(foundUser);
         newLoan.setBook(foundBook);
         newLoan.setLoanDate(LocalDateTime.now());
         newLoan.setStatus(LoanStatus.ACTIVE);
         loans.add(newLoan);
-
-        // Disminuir la cantidad de libros disponibles
-        books.put(foundBook, books.get(foundBook) - 1);
-
         return newLoan;
     }
 
