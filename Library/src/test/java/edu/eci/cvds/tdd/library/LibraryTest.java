@@ -219,4 +219,13 @@ public class LibraryTest
         assertEquals(1, library.getBooks().get(book), "The number of books should have increased by 1");
     }
 
+    @Test
+    public void testReturnNonExistentLoan() {
+        Library library = new Library();
+        // Crear un préstamo que no existe en la lista de préstamos
+        Loan loan = new Loan();
+
+        Loan result = library.returnLoan(loan);
+        assertNull(result, "A non-existent loan should not be able to be repaid");
+    }
 }
