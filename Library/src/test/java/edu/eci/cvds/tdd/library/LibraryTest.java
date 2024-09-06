@@ -179,5 +179,14 @@ public class LibraryTest
         assertNull(result, "Returning a null loan should return null");
     }
 
+    @Test
+    public void testReturnLoanWhenLoanIsNotActive() {
+        Library library = new Library();
+        Loan loan = new Loan();
+        loan.setStatus(LoanStatus.RETURNED); // Establecer el estado a "RETURNED"
+
+        Loan result = library.returnLoan(loan);
+        assertNull(result, "No se debería poder devolver un préstamo que no está activo");
+    }
 
 }
