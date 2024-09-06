@@ -1,4 +1,4 @@
-package edu.eci.cvds.tdd;
+package edu.eci.cvds.tdd.library;
 
 import edu.eci.cvds.tdd.library.Library;
 import edu.eci.cvds.tdd.library.book.Book;
@@ -114,7 +114,7 @@ public class LibraryTest {
 
         library.addBook(book);  // Añadimos libro sin añadir usuario
 
-        Loan loan = library.loanABook("An invalid id", book.getIsbn());
+        Loan loan = library.loanABook(null, book.getIsbn());
         assertNull(loan, "Loan should be null if user does not exist");
     }
 
@@ -153,7 +153,7 @@ public class LibraryTest {
     }
 
     @Test
-    public void testReturnLoanWithNullLoan() {
+    public void returnLoanWithNullLoan() {
         Library library = new Library();
         Loan loan = null;
         Loan result = library.returnLoan(loan);
@@ -161,7 +161,7 @@ public class LibraryTest {
     }
 
     @Test
-    public void testReturnLoanWhenLoanIsNotActive() {
+    public void returnLoanWhenLoanIsNotActive() {
         Library library = new Library();
         Loan loan = new Loan();
         loan.setStatus(LoanStatus.RETURNED); // Establecer el estado a "RETURNED"
@@ -171,7 +171,7 @@ public class LibraryTest {
     }
 
     @Test
-    public void testReturnActiveLoan() {
+    public void returnActiveLoan() {
         Library library = new Library();
         Book book = new Book("Libro1", "G. Marquez", "12345");
         library.addBook(book);
@@ -193,7 +193,7 @@ public class LibraryTest {
     }
 
     @Test
-    public void testReturnNonExistentLoan() {
+    public void returnNonExistentLoan() {
         Library library = new Library();
         Loan loan = new Loan();
 
@@ -202,7 +202,7 @@ public class LibraryTest {
     }
 
     @Test
-    public void testReturnLoanAlreadyReturned() {
+    public void returnLoanAlreadyReturned() {
         Library library = new Library();
         Book book = new Book("Libro2", "S. Diaz", "12345");
         library.addBook(book);
